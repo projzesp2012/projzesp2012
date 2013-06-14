@@ -22,7 +22,7 @@ import android.util.Log;
  */
 public class DiyDbAdapter {
 	// increase version after modifying columns, clean and rebuild library AND project!
-	private static final int DATABASE_VERSION = 21;
+	private static final int DATABASE_VERSION = 23;
 
 	private static final String DATABASE_NAME = "data2";
 	private static final String DATABASE_TABLE = "diys";
@@ -44,6 +44,13 @@ public class DiyDbAdapter {
 	public static final String KEY_TRIGGER_DATE_PARAM_TO = "trigger_date_param_to";//
 	public static final String KEY_TRIGGER_WIFI = "trigger_wifi";//
 	public static final String KEY_TRIGGER_WIFI_PARAM_SSID = "trigger_wifi_param_ssid";//
+	public static final String KEY_TRIGGER_DATE_PARAM_DAY1 = "trigger_date_param_day1";//
+	public static final String KEY_TRIGGER_DATE_PARAM_DAY2 = "trigger_date_param_day2";//
+	public static final String KEY_TRIGGER_DATE_PARAM_DAY3 = "trigger_date_param_day3";//
+	public static final String KEY_TRIGGER_DATE_PARAM_DAY4 = "trigger_date_param_day4";//
+	public static final String KEY_TRIGGER_DATE_PARAM_DAY5 = "trigger_date_param_day5";//
+	public static final String KEY_TRIGGER_DATE_PARAM_DAY6 = "trigger_date_param_day6";//
+	public static final String KEY_TRIGGER_DATE_PARAM_DAY7 = "trigger_date_param_day7";//
 	// TEMPLATE_triggers: public static final String KEY_{uppercase} = "{lowercase}";//
 
 	// actions
@@ -65,6 +72,8 @@ public class DiyDbAdapter {
 	public static final String KEY_ACTION_SOUNDPROFILE_PARAM_PROFILE_SOUND = "action_soundprofile_param_profile_sound";//
 	public static final String KEY_ACTION_SOUNDPROFILE_PARAM_PROFILE_VIBRATIONS = "action_soundprofile_param_profile_vibrations";//
 	public static final String KEY_ACTION_SOUNDPROFILE_PARAM_VOLUME = "action_soundprofile_param_volume";//
+	public static final String KEY_ACTION_NOTIFICATION_PARAM_WWW_TEXT = "action_notification_param_www_text";//
+	public static final String KEY_ACTION_NOTIFICATION_PARAM_WWW_SWITCH = "action_notification_param_www_switch";//
 	// TEMPLATE_actions: public static final String KEY_{uppercase} = "{lowercase}";//
 
 
@@ -85,9 +94,18 @@ public class DiyDbAdapter {
 			KEY_TRIGGER_DATE_PARAM_TO,//
 			KEY_TRIGGER_WIFI,//
 			KEY_TRIGGER_WIFI_PARAM_SSID,//
+			KEY_TRIGGER_DATE_PARAM_DAY1,//
+			KEY_TRIGGER_DATE_PARAM_DAY2,//
+			KEY_TRIGGER_DATE_PARAM_DAY3,//
+			KEY_TRIGGER_DATE_PARAM_DAY4,//
+			KEY_TRIGGER_DATE_PARAM_DAY5,//
+			KEY_TRIGGER_DATE_PARAM_DAY6,//
+			KEY_TRIGGER_DATE_PARAM_DAY7,//
 			// TEMPLATE_triggers: KEY_{uppercase},//
 
 			// actions
+			KEY_ACTION_NOTIFICATION_PARAM_WWW_TEXT,// 
+			KEY_ACTION_NOTIFICATION_PARAM_WWW_SWITCH,// 
 			// TEMPLATE_actions: KEY_{uppercase},// 
 			KEY_ACTION_WIFI,//
 			KEY_ACTION_WIFI_PARAM_TURN_ON,//
@@ -136,9 +154,18 @@ public class DiyDbAdapter {
 			+ KEY_TRIGGER_DATE_PARAM_TO + " text not null,"//
 			+ KEY_TRIGGER_WIFI + " integer not null,"//
 			+ KEY_TRIGGER_WIFI_PARAM_SSID + " text not null,"//
+			+ KEY_TRIGGER_DATE_PARAM_DAY1 + " integer not null,"//
+			+ KEY_TRIGGER_DATE_PARAM_DAY2 + " integer not null,"//
+			+ KEY_TRIGGER_DATE_PARAM_DAY3 + " integer not null,"//
+			+ KEY_TRIGGER_DATE_PARAM_DAY4 + " integer not null,"//
+			+ KEY_TRIGGER_DATE_PARAM_DAY5 + " integer not null,"//
+			+ KEY_TRIGGER_DATE_PARAM_DAY6 + " integer not null,"//
+			+ KEY_TRIGGER_DATE_PARAM_DAY7 + " integer not null,"//
 			// TEMPLATE_triggers: + KEY_{uppercase} + " {dbtype} not null,"//
 
 			// actions
+			+ KEY_ACTION_NOTIFICATION_PARAM_WWW_TEXT + " text not null,"//
+			+ KEY_ACTION_NOTIFICATION_PARAM_WWW_SWITCH + " integer not null,"//
 			// TEMPLATE_actions: + KEY_{uppercase} + " {dbtype} not null,"//
 			+ KEY_ACTION_WIFI + " integer not null,"//
 			+ KEY_ACTION_WIFI_PARAM_TURN_ON + " integer not null,"//
@@ -242,6 +269,13 @@ public class DiyDbAdapter {
 		initialValues.put(KEY_TRIGGER_DATE_PARAM_TO, "");//
 		initialValues.put(KEY_TRIGGER_WIFI, 0);//
 		initialValues.put(KEY_TRIGGER_WIFI_PARAM_SSID, "");//
+		initialValues.put(KEY_TRIGGER_DATE_PARAM_DAY1, 0);//
+		initialValues.put(KEY_TRIGGER_DATE_PARAM_DAY2, 0);//
+		initialValues.put(KEY_TRIGGER_DATE_PARAM_DAY3, 0);//
+		initialValues.put(KEY_TRIGGER_DATE_PARAM_DAY4, 0);//
+		initialValues.put(KEY_TRIGGER_DATE_PARAM_DAY5, 0);//
+		initialValues.put(KEY_TRIGGER_DATE_PARAM_DAY6, 0);//
+		initialValues.put(KEY_TRIGGER_DATE_PARAM_DAY7, 0);//
 		// TEMPLATE_triggers: initialValues.put(KEY_{uppercase}, {default_value});//
 
 		// actions
@@ -263,6 +297,8 @@ public class DiyDbAdapter {
 		initialValues.put(KEY_ACTION_SOUNDPROFILE_PARAM_PROFILE_SOUND, 0);//
 		initialValues.put(KEY_ACTION_SOUNDPROFILE_PARAM_PROFILE_VIBRATIONS, 0);//
 		initialValues.put(KEY_ACTION_SOUNDPROFILE_PARAM_VOLUME, 7);//
+		initialValues.put(KEY_ACTION_NOTIFICATION_PARAM_WWW_TEXT, "");//
+		initialValues.put(KEY_ACTION_NOTIFICATION_PARAM_WWW_SWITCH, 0);//
 		// TEMPLATE_actions: initialValues.put(KEY_{uppercase}, {default_value});//
 
 		return mDb.insert(DATABASE_TABLE, null, initialValues);
@@ -337,12 +373,19 @@ public class DiyDbAdapter {
 	}
 
 	public boolean updateDiyTriggers(long rowId,
+			boolean trigger_date_param_day1,//
+			boolean trigger_date_param_day2,//
+			boolean trigger_date_param_day3,//
+			boolean trigger_date_param_day4,//
+			boolean trigger_date_param_day5,//
+			boolean trigger_date_param_day6,//
+			boolean trigger_date_param_day7,//
+			// TEMPLATE_triggers: {vartype} {lowercase},//
 			boolean trigger_date,
 			String trigger_date_param_from,
 			String trigger_date_param_to,
 			boolean trigger_wifi,//
 			String trigger_wifi_param_ssid,//
-			// TEMPLATE_triggers: {vartype} {lowercase},//
 			boolean trigger_location_enabled,
 			double trigger_location_param_latitude,
 			double trigger_location_param_longtitude,
@@ -358,6 +401,13 @@ public class DiyDbAdapter {
 		args.put(KEY_TRIGGER_DATE_PARAM_TO, trigger_date_param_to);
 		args.put(KEY_TRIGGER_WIFI, trigger_wifi);
 		args.put(KEY_TRIGGER_WIFI_PARAM_SSID, trigger_wifi_param_ssid);
+		args.put(KEY_TRIGGER_DATE_PARAM_DAY1, trigger_date_param_day1 ? 1 : 0);
+		args.put(KEY_TRIGGER_DATE_PARAM_DAY2, trigger_date_param_day2 ? 1 : 0);
+		args.put(KEY_TRIGGER_DATE_PARAM_DAY3, trigger_date_param_day3 ? 1 : 0);
+		args.put(KEY_TRIGGER_DATE_PARAM_DAY4, trigger_date_param_day4 ? 1 : 0);
+		args.put(KEY_TRIGGER_DATE_PARAM_DAY5, trigger_date_param_day5 ? 1 : 0);
+		args.put(KEY_TRIGGER_DATE_PARAM_DAY6, trigger_date_param_day6 ? 1 : 0);
+		args.put(KEY_TRIGGER_DATE_PARAM_DAY7, trigger_date_param_day7 ? 1 : 0);
 		// TEMPLATE_triggers: args.put(KEY_{uppercase}, {lowercase}{cmp});
 		// must add '? 1 : 0' manually
 
@@ -366,6 +416,8 @@ public class DiyDbAdapter {
 
 	public boolean updateDiyActions(
 			long rowId,
+			String action_notification_param_www_text,//
+			boolean action_notification_param_www_switch,//
 			// TEMPLATE_actions: {vartype} {lowercase},//
 			boolean action_wifi,
 			boolean action_wifi_param_turn_on,
@@ -405,6 +457,8 @@ public class DiyDbAdapter {
 		args.put(KEY_ACTION_SOUNDPROFILE_PARAM_PROFILE_SOUND, action_soundprofile_param_profile_sound ? 1 : 0);
 		args.put(KEY_ACTION_SOUNDPROFILE_PARAM_PROFILE_VIBRATIONS, action_soundprofile_param_profile_vibrations ? 1 : 0);
 		args.put(KEY_ACTION_SOUNDPROFILE_PARAM_VOLUME, action_soundprofile_param_volume);
+		args.put(KEY_ACTION_NOTIFICATION_PARAM_WWW_TEXT, action_notification_param_www_text);
+		args.put(KEY_ACTION_NOTIFICATION_PARAM_WWW_SWITCH, action_notification_param_www_switch ? 1 : 0);
 		// TEMPLATE_actions: args.put(KEY_{uppercase}, {lowercase}{cmp});
 
 		return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
